@@ -10,7 +10,13 @@ public class TestNode : MonoBehaviour
     public bool visited = false;
     public TestNode parent;
     public double currWeight = double.PositiveInfinity;
-    void Start()
+
+    public TestNode(double currWeight)
+    {
+        this.currWeight = currWeight;
+    }
+
+    private void Awake()
     {
         if (ConnectedNodes != null)
         {
@@ -27,13 +33,6 @@ public class TestNode : MonoBehaviour
                 }
             }
         }
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     private void OnDrawGizmos()

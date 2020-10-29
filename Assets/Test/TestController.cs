@@ -11,7 +11,7 @@ public class TestController : MonoBehaviour
 
     public List<int[]> Weights = new List<int[]>();
 
-    void Start()
+    void Awake()
     {
         if (StartingNode == null)
         {
@@ -107,7 +107,7 @@ public class TestController : MonoBehaviour
         } while (next.parent != null);
     }
 
-    public TestNode visit(int index)
+    private TestNode visit(int index)
     {
         TestNode curr = Nodes[index].GetComponent<TestNode>();
         for (int j = 0; j < Weights.Count; j++)
@@ -122,7 +122,7 @@ public class TestController : MonoBehaviour
         }
 
         curr.visited = true;
-        TestNode next = new TestNode();
+        TestNode next = new TestNode(double.PositiveInfinity);
         foreach (GameObject node in Nodes)
         {
             TestNode curNode = node.GetComponent<TestNode>();
