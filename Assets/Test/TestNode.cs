@@ -5,8 +5,10 @@ using UnityEngine;
 public class TestNode : MonoBehaviour
 {
     // Start is called before the first frame update
+    public int ID;
     public List<GameObject> ConnectedNodes;
-    public bool Visited = false;
+    public bool visited = false;
+    public TestNode parent;
     public double currWeight = double.PositiveInfinity;
     void Start()
     {

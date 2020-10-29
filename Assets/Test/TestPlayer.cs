@@ -12,7 +12,6 @@ public class TestPlayer : MonoBehaviour
     void Start()
     {
         target = path.Pop();
-
     }
 
     // Update is called once per frame
