@@ -6,6 +6,8 @@ public class TestNode : MonoBehaviour
 {
     // Start is called before the first frame update
     public List<GameObject> ConnectedNodes;
+    public bool Visited = false;
+    public double currWeight = double.PositiveInfinity;
     void Start()
     {
         if (ConnectedNodes != null)
