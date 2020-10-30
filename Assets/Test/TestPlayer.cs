@@ -11,7 +11,9 @@ public class TestPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("STACK START: " + TestPlayer.path.Count);
         target = path.Pop();
+
     }
 
     // Update is called once per frame
@@ -30,5 +32,6 @@ public class TestPlayer : MonoBehaviour
                 target = path.Pop();
             }
         }
+
     }
 }

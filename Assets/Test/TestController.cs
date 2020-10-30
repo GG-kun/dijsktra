@@ -93,18 +93,21 @@ public class TestController : MonoBehaviour
         StartingScript.currWeight = 0;
 
         TestNode next = Nodes[InitialID].GetComponent<TestNode>();
-        do
+
+        while (next.currWeight != double.PositiveInfinity && !Nodes[EndID].GetComponent<TestNode>().visited)
         {
             next = visit(next.ID);
-        } while (next.currWeight != double.PositiveInfinity && !Nodes[EndID].GetComponent<TestNode>().visited);
+        }
+
+        next = Nodes[EndID].GetComponent<TestNode>();
 
         TestPlayer.path.Push(null);
         TestPlayer.path.Push(next);
-        do
+        while (next.parent != null)
         {
             TestPlayer.path.Push(next.parent);
             next = next.parent;
-        } while (next.parent != null);
+        }
     }
 
     private TestNode visit(int index)
@@ -130,6 +133,7 @@ public class TestController : MonoBehaviour
             {
                 next = curNode;
             }
+
         }
         return next;
     }
