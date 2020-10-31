@@ -17,7 +17,7 @@ public class TestController : MonoBehaviour
         {
             int[] tempWeights = new int[NumberOfNodes];
             GameObject currentNode = Nodes[i];
-            TestNode currentScript = currentNode.GetComponent<TestNode>().clone();
+            TestNode currentScript = currentNode.GetComponent<TestNode>();
             currentScript.ID = i;
 
             for (int j = 0; j < NumberOfNodes; j++)
@@ -70,22 +70,22 @@ public class TestController : MonoBehaviour
 
     public Stack<TestNode> Dijkstra(TestNode StartingNode, TestNode EndNode)
     {
-        TestNode StartingScript = StartingNode.GetComponent<TestNode>().clone();
-        TestNode EndScript = EndNode.GetComponent<TestNode>().clone();
+        TestNode StartingScript = StartingNode.GetComponent<TestNode>();
+        TestNode EndScript = EndNode.GetComponent<TestNode>();
 
         int InitialID = StartingScript.ID;
         int EndID = EndScript.ID;
 
         StartingScript.currWeight = 0;
 
-        TestNode next = Nodes[InitialID].GetComponent<TestNode>().clone();
+        TestNode next = Nodes[InitialID].GetComponent<TestNode>();
 
-        while (next.currWeight != double.PositiveInfinity && !Nodes[EndID].GetComponent<TestNode>().clone().visited)
+        while (next.currWeight != double.PositiveInfinity && !Nodes[EndID].GetComponent<TestNode>().visited)
         {
             next = visit(next.ID);
         }
 
-        next = Nodes[EndID].GetComponent<TestNode>().clone();
+        next = Nodes[EndID].GetComponent<TestNode>();
 
         Stack<TestNode> path = new Stack<TestNode>();
         path.Push(null);
@@ -101,10 +101,10 @@ public class TestController : MonoBehaviour
 
     private TestNode visit(int index)
     {
-        TestNode curr = Nodes[index].GetComponent<TestNode>().clone();
+        TestNode curr = Nodes[index].GetComponent<TestNode>();
         for (int j = 0; j < Weights.Count; j++)
         {
-            TestNode neighbour = Nodes[j].GetComponent<TestNode>().clone();
+            TestNode neighbour = Nodes[j].GetComponent<TestNode>();
             double newWeight = (curr.currWeight + Weights[index][j]);
             if (!neighbour.visited && Weights[index][j] != 0 && newWeight < neighbour.currWeight)
             {
@@ -117,7 +117,7 @@ public class TestController : MonoBehaviour
         TestNode next = new TestNode(double.PositiveInfinity);
         foreach (GameObject node in Nodes)
         {
-            TestNode curNode = node.GetComponent<TestNode>().clone();
+            TestNode curNode = node.GetComponent<TestNode>();
             if (!curNode.visited && curNode.currWeight < next.currWeight)
             {
                 next = curNode;
