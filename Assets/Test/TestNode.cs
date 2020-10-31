@@ -20,7 +20,7 @@ public class TestNode : MonoBehaviour
     {
         if (ConnectedNodes != null)
         {
-            List<int> id_l = new List<int>();
+            List<GameObject> id_l = new List<GameObject>();
             for (int i = 0; i < ConnectedNodes.Count; i++)
             {
                 RaycastHit hit;
@@ -28,15 +28,15 @@ public class TestNode : MonoBehaviour
                 {
                     if (hit.transform.tag != "Node")
                     {
-                        id_l.Add(i);
-                        Debug.Log(transform.name + " does not have a clear path to " + ConnectedNodes[i].transform.name);
+                        id_l.Add(ConnectedNodes[i]);
+                        // Debug.Log(transform.name + " does not have a clear path to " + ConnectedNodes[i].transform.name);
                     }
                 }
             }
 
-            foreach (var id in id_l)
+            foreach (var go in id_l)
             {
-                ConnectedNodes.RemoveAt(id);
+                ConnectedNodes.Remove(go);
             }
 
             for (int i = 0; i < ConnectedNodes.Count; i++)
