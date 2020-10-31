@@ -10,6 +10,7 @@ public class TestNode : MonoBehaviour
     public bool visited = false;
     public TestNode parent;
     public double currWeight = double.PositiveInfinity;
+    public bool isTreasure = false;
 
     public TestNode(double currWeight)
     {
@@ -45,5 +46,15 @@ public class TestNode : MonoBehaviour
                 Gizmos.DrawLine(transform.position, ConnectedNodes[i].transform.position);
             }
         }
+    }
+
+    public TestNode clone(){
+        TestNode clone = new TestNode(this.currWeight);
+        clone.ID = this.ID;
+        clone.ConnectedNodes = this.ConnectedNodes;
+        clone.visited = this.visited;
+        clone.parent = this.parent;
+        clone.isTreasure = this.isTreasure;
+        return clone;
     }
 }

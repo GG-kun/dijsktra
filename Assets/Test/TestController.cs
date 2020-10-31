@@ -4,23 +4,11 @@ using UnityEngine;
 
 public class TestController : MonoBehaviour
 {
-    public GameObject StartingNode;
-    public GameObject EndNode;
-
-    private GameObject[] Nodes;
-
+    public static GameObject[] Nodes;
     public List<int[]> Weights = new List<int[]>();
 
     void Awake()
     {
-        if (StartingNode == null)
-        {
-            Debug.LogError("StartingNode is missing!");
-        }
-        if (EndNode == null)
-        {
-            Debug.LogError("EndNode is missing!");
-        }
         Nodes = GameObject.FindGameObjectsWithTag("Node");
         int NumberOfNodes = Nodes.Length;
         Debug.Log("Number of Nodes found: " + NumberOfNodes);
@@ -29,7 +17,7 @@ public class TestController : MonoBehaviour
         {
             int[] tempWeights = new int[NumberOfNodes];
             GameObject currentNode = Nodes[i];
-            TestNode currentScript = currentNode.GetComponent<TestNode>();
+            TestNode currentScript = currentNode.GetComponent<TestNode>().clone();
             currentScript.ID = i;
 
             for (int j = 0; j < NumberOfNodes; j++)
@@ -78,44 +66,45 @@ public class TestController : MonoBehaviour
             Debug.Log(arrayString);
             arrayString = "";
         }
-
-        Dijkstra();
     }
 
-    void Dijkstra()
+    public Stack<TestNode> Dijkstra(TestNode StartingNode, TestNode EndNode)
     {
-        TestNode StartingScript = StartingNode.GetComponent<TestNode>();
-        TestNode EndScript = EndNode.GetComponent<TestNode>();
+        TestNode StartingScript = StartingNode.GetComponent<TestNode>().clone();
+        TestNode EndScript = EndNode.GetComponent<TestNode>().clone();
 
         int InitialID = StartingScript.ID;
         int EndID = EndScript.ID;
 
         StartingScript.currWeight = 0;
 
-        TestNode next = Nodes[InitialID].GetComponent<TestNode>();
+        TestNode next = Nodes[InitialID].GetComponent<TestNode>().clone();
 
-        while (next.currWeight != double.PositiveInfinity && !Nodes[EndID].GetComponent<TestNode>().visited)
+        while (next.currWeight != double.PositiveInfinity && !Nodes[EndID].GetComponent<TestNode>().clone().visited)
         {
             next = visit(next.ID);
         }
 
-        next = Nodes[EndID].GetComponent<TestNode>();
+        next = Nodes[EndID].GetComponent<TestNode>().clone();
 
-        TestPlayer.path.Push(null);
-        TestPlayer.path.Push(next);
+        Stack<TestNode> path = new Stack<TestNode>();
+        path.Push(null);
+        path.Push(next);
         while (next.parent != null)
         {
-            TestPlayer.path.Push(next.parent);
+            path.Push(next.parent);
             next = next.parent;
         }
+
+        return path;
     }
 
     private TestNode visit(int index)
     {
-        TestNode curr = Nodes[index].GetComponent<TestNode>();
+        TestNode curr = Nodes[index].GetComponent<TestNode>().clone();
         for (int j = 0; j < Weights.Count; j++)
         {
-            TestNode neighbour = Nodes[j].GetComponent<TestNode>();
+            TestNode neighbour = Nodes[j].GetComponent<TestNode>().clone();
             double newWeight = (curr.currWeight + Weights[index][j]);
             if (!neighbour.visited && Weights[index][j] != 0 && newWeight < neighbour.currWeight)
             {
@@ -128,7 +117,7 @@ public class TestController : MonoBehaviour
         TestNode next = new TestNode(double.PositiveInfinity);
         foreach (GameObject node in Nodes)
         {
-            TestNode curNode = node.GetComponent<TestNode>();
+            TestNode curNode = node.GetComponent<TestNode>().clone();
             if (!curNode.visited && curNode.currWeight < next.currWeight)
             {
                 next = curNode;
