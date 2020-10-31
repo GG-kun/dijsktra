@@ -10,6 +10,9 @@ public class TestNode : MonoBehaviour
     public bool visited = false;
     public TestNode parent;
     public double currWeight = double.PositiveInfinity;
+    public bool isTreasure = false;
+    public bool isClone = false;
+    public Material golden;
 
     public TestNode(double currWeight)
     {
@@ -18,6 +21,9 @@ public class TestNode : MonoBehaviour
 
     private void Awake()
     {
+        if(this.isTreasure){
+            gameObject.GetComponent<Renderer>().material = golden;
+        }
         if (ConnectedNodes != null)
         {
             List<GameObject> id_l = new List<GameObject>();
@@ -65,5 +71,19 @@ public class TestNode : MonoBehaviour
                 Gizmos.DrawLine(transform.position, ConnectedNodes[i].transform.position);
             }
         }
+    }
+
+    public TestNode clone(){
+        GameObject fuck = new GameObject();
+        TestNode clone = fuck.AddComponent<TestNode>();
+        Destroy(fuck);
+        clone.currWeight = this.currWeight;
+        clone.ID = this.ID;
+        clone.ConnectedNodes = this.ConnectedNodes;
+        clone.visited = this.visited;
+        clone.parent = this.parent;
+        clone.isTreasure = this.isTreasure;
+        this.isClone = true;
+        return clone;
     }
 }
