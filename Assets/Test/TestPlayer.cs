@@ -45,8 +45,7 @@ public class TestPlayer : MonoBehaviour
             // Check if the position of the cube and sphere are approximately equal.
             if (Vector3.Distance(transform.position, this.target.transform.position) < diffDistance)
             {
-                // Swap the position of the cylinder.
-                this.target = TestController.Nodes[this.path.Pop().ID].GetComponent<TestNode>();
+                this.target = this.path.Pop();
             }
         }
     }

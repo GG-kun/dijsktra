@@ -74,8 +74,6 @@ public class TestController : MonoBehaviour
         for (int i = 0; i < nodes.Length; i++)
         {
             nodes[i] = Nodes[i].GetComponent<TestNode>().clone();
-            Debug.Log(Nodes[i].GetComponent<TestNode>());
-            Debug.Log(nodes[i]);
         }
         TestNode StartingScript = nodes[StartingNode.GetComponent<TestNode>().ID];
         TestNode EndScript = nodes[EndNode.GetComponent<TestNode>().ID];
