@@ -16,10 +16,11 @@ public class Player : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {        
-        if(target != null){
+    {
+        if (target != null)
+        {
             // Move our position a step closer to the target.
-            float step =  speed * Time.deltaTime; // calculate distance to move
+            float step = speed * Time.deltaTime; // calculate distance to move
             transform.position = Vector3.MoveTowards(transform.position, target.position, step);
 
             // Check if the position of the cube and sphere are approximately equal.

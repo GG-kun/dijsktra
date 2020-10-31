@@ -13,29 +13,33 @@ public class Matrices : MonoBehaviour
     public Node[] nodes;
     public int initial, final;
 
-    public Node visit(int index){
+    public Node visit(int index)
+    {
         Node curr = nodes[index];
         for (int j = 0; j < weights.GetLength(1); j++)
         {
             Node neighbour = nodes[j];
             double newWeight = (curr.currWeight + weights[index, j]);
-            if(!neighbour.visited && weights[index, j] != 0 && newWeight < neighbour.currWeight){
+            if (!neighbour.visited && weights[index, j] != 0 && newWeight < neighbour.currWeight)
+            {
                 neighbour.currWeight = newWeight;
                 neighbour.parent = curr;
             }
         }
-        curr.visited = true;        
+        curr.visited = true;
         Node next = new Node(double.PositiveInfinity);
         foreach (Node node in nodes)
         {
-            if(!node.visited && node.currWeight < next.currWeight){
+            if (!node.visited && node.currWeight < next.currWeight)
+            {
                 next = node;
             }
         }
         return next;
     }
 
-    private void Awake() {
+    private void Awake()
+    {
         for (int i = 0; i < nodes.Length; i++)
         {
             nodes[i].id = i;
@@ -56,12 +60,14 @@ public class Matrices : MonoBehaviour
         } while (next.parent != null);
     }
 
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
         for (int i = 0; i < weights.GetLength(0); i++)
         {
             for (int j = 0; j < weights.GetLength(1); j++)
             {
-                if(weights[i,j] != 0){
+                if (weights[i, j] != 0)
+                {
                     Debug.DrawLine(nodes[i].position, nodes[j].position);
                 }
             }
