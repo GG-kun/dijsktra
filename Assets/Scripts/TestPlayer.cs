@@ -14,7 +14,10 @@ public class TestPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        TestController algorithm = gameObject.AddComponent<TestController>();
+        Invoke("StartTwo",0.25f);
+    }
+
+    void StartTwo(){        
         double minDistance = double.PositiveInfinity;
         foreach (GameObject nodeObject in TestController.Nodes)
         {
@@ -28,8 +31,7 @@ public class TestPlayer : MonoBehaviour
                 EndNode = node;
             }
         }
-        this.path = algorithm.Dijkstra(StartingNode, EndNode);
-        Debug.Log("STACK START: " + this.path.Count);
+        this.path = TestController.Dijkstra(StartingNode, EndNode);
         this.target = TestController.Nodes[this.path.Pop().ID].GetComponent<TestNode>();
     }
 

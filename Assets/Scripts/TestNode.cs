@@ -12,7 +12,6 @@ public class TestNode : MonoBehaviour
     public double currWeight = double.PositiveInfinity;
     public bool isTreasure = false;
     public bool isClone = false;
-    public Material golden;
 
     public TestNode(double currWeight)
     {
@@ -21,9 +20,6 @@ public class TestNode : MonoBehaviour
 
     private void Awake()
     {
-        if(this.isTreasure){
-            gameObject.GetComponent<Renderer>().material = golden;
-        }
         if (ConnectedNodes != null)
         {
             List<GameObject> id_l = new List<GameObject>();
