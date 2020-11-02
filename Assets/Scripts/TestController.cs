@@ -5,23 +5,23 @@ using UnityEngine;
 public class TestController : MonoBehaviour
 {
     public static GameObject[] Nodes;
-    public List<int[]> Weights = new List<int[]>();
+    public static List<int[]> Weights = new List<int[]>();
+    public Material golden;
 
     void Awake()
     {
         Nodes = GameObject.FindGameObjectsWithTag("Node");
         int NumberOfNodes = Nodes.Length;
-        Debug.Log("Number of Nodes found: " + NumberOfNodes);
 
         for (int i = 0; i < NumberOfNodes; i++)
         {
             int[] tempWeights = new int[NumberOfNodes];
             GameObject currentNode = Nodes[i];
             TestNode currentScript = currentNode.GetComponent<TestNode>();
-            currentScript.ID = i;
+            currentScript.ID = i;         
 
             for (int j = 0; j < NumberOfNodes; j++)
-            {
+            {                
                 GameObject testNode = Nodes[j];
                 // If the node is the same as the currentNode
                 if (currentNode == testNode)
@@ -63,12 +63,20 @@ public class TestController : MonoBehaviour
             {
                 arrayString += string.Format("{0} ", Weights[i][j]);
             }
-            Debug.Log(arrayString);
             arrayString = "";
         }
     }
 
-    public Stack<TestNode> Dijkstra(TestNode StartingNode, TestNode EndNode)
+    void Start(){        
+        TestNode treasure = Nodes[Random.Range(0,Nodes.Length)].GetComponent<TestNode>();
+        do{
+            treasure = Nodes[Random.Range(0,Nodes.Length)].GetComponent<TestNode>();
+        }while(treasure.ConnectedNodes.Count < 1);
+        treasure.isTreasure = true;
+        // Nodes[treasure.ID].GetComponent<Renderer>().material = golden;
+    }
+
+    public static Stack<TestNode> Dijkstra(TestNode StartingNode, TestNode EndNode)
     {
         TestNode[] nodes = new TestNode[Nodes.Length];
         for (int i = 0; i < nodes.Length; i++)
@@ -99,7 +107,7 @@ public class TestController : MonoBehaviour
         return path;
     }
 
-    private TestNode visit(int index, TestNode[] nodes)
+    private static TestNode visit(int index, TestNode[] nodes)
     {
         TestNode curr = nodes[index];
         for (int j = 0; j < Weights.Count; j++)
@@ -123,9 +131,5 @@ public class TestController : MonoBehaviour
             }
         }
         return next;
-    }
-    void Update()
-    {
-
     }
 }
