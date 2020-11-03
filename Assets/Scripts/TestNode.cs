@@ -69,10 +69,11 @@ public class TestNode : MonoBehaviour
         }
     }
 
-    public TestNode clone(){
-        GameObject fuck = new GameObject();
-        TestNode clone = fuck.AddComponent<TestNode>();
-        Destroy(fuck);
+    public TestNode clone()
+    {
+        GameObject tmp = new GameObject();
+        TestNode clone = tmp.AddComponent<TestNode>();
+        Destroy(tmp);
         clone.currWeight = this.currWeight;
         clone.ID = this.ID;
         clone.ConnectedNodes = this.ConnectedNodes;
