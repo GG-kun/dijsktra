@@ -18,10 +18,10 @@ public class TestController : MonoBehaviour
             int[] tempWeights = new int[NumberOfNodes];
             GameObject currentNode = Nodes[i];
             TestNode currentScript = currentNode.GetComponent<TestNode>();
-            currentScript.ID = i;         
+            currentScript.ID = i;
 
             for (int j = 0; j < NumberOfNodes; j++)
-            {                
+            {
                 GameObject testNode = Nodes[j];
                 // If the node is the same as the currentNode
                 if (currentNode == testNode)
@@ -67,13 +67,15 @@ public class TestController : MonoBehaviour
         }
     }
 
-    void Start(){        
-        TestNode treasure = Nodes[Random.Range(0,Nodes.Length)].GetComponent<TestNode>();
-        do{
-            treasure = Nodes[Random.Range(0,Nodes.Length)].GetComponent<TestNode>();
-        }while(treasure.ConnectedNodes.Count < 1);
+    void Start()
+    {
+        TestNode treasure = Nodes[Random.Range(0, Nodes.Length)].GetComponent<TestNode>();
+        do
+        {
+            treasure = Nodes[Random.Range(0, Nodes.Length)].GetComponent<TestNode>();
+        } while (treasure.ConnectedNodes.Count < 1);
         treasure.isTreasure = true;
-        // Nodes[treasure.ID].GetComponent<Renderer>().material = golden;
+        Nodes[treasure.ID].GetComponent<Renderer>().material = golden;
     }
 
     public static Stack<TestNode> Dijkstra(TestNode StartingNode, TestNode EndNode)
